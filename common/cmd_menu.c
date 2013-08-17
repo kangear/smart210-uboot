@@ -71,7 +71,7 @@ void menu_shell(void)
 			case '2':
 			{
 
-				strcpy(cmd_buf, "dnw 0x20000000; nand erase 0x300000 0x400000; nand write 0x20000000 0x300000 0x400000");
+				strcpy(cmd_buf, "dnw 0x20000000; nand erase 0x300000 0x500000; nand write 0x20000000 0x300000 0x500000");
 
 				run_command(cmd_buf, 0);
 				break;
@@ -80,11 +80,11 @@ void menu_shell(void)
 
 			case '3':
 			{
-#ifdef CONFIG_MTD_DEVICE
-				strcpy(cmd_buf, "dnw 0x20000000; nand erase root; nand write.yaffs 0x20000000 root $(filesize)");
-#else
-				strcpy(cmd_buf, "dnw 0x20000000; nand erase 0x700000 0xF8D0000; nand write.yaffs 0x20000000 0x700000 $(filesize)");
-#endif /* CONFIG_MTD_DEVICE */
+//#ifdef CONFIG_MTD_DEVICE
+//				strcpy(cmd_buf, "dnw 0x20000000; nand erase root; nand write.yaffs 0x20000000 root $(filesize)");
+//#else
+				strcpy(cmd_buf, "dnw 0x20000000; nand erase 0xe00000 0xF8D0000; nand write.yaffs 0x20000000 0xe00000 $(filesize)");
+//#endif /* CONFIG_MTD_DEVICE */
 				run_command(cmd_buf, 0);
 				break;
 			}
@@ -104,11 +104,11 @@ void menu_shell(void)
 			{
 
 				printf("Start Linux ...\n");
-#ifdef CONFIG_MTD_DEVICE
-				strcpy(cmd_buf, "nand read 0x20008000 kernel;bootm 0x20008000");
-#else
-				strcpy(cmd_buf, "nand read 0x20008000 0x300000 0x400000;bootm 0x20008000");
-#endif /* CONFIG_MTD_DEVICE */
+//#ifdef CONFIG_MTD_DEVICE
+//				strcpy(cmd_buf, "nand read 0x20008000 kernel;bootm 0x20008000");
+//#else
+				strcpy(cmd_buf, "nand read 0x21000000 0x300000 0x500000;bootm 0x21000000");
+//#endif /* CONFIG_MTD_DEVICE */
 				run_command(cmd_buf, 0);
 				break;
 			}
